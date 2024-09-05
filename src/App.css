@@ -13,13 +13,13 @@
   display: flex; /* Aligns buttons horizontally */
   gap: 1rem; /* Optional: Space between buttons */
   padding-right: 0.5rem;
-  color: white;
+  color: #ffffff;
 }
 
 .App-buttonLogIn, .App-buttonSingUp {
   background-color: inherit;
   height: 8vmin;
-  width: 12vmin;
+  width: 15vmin;
   text-align: center;
   justify-content: center;
   font-size: 3vmin;
@@ -64,13 +64,4 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
