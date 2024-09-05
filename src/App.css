@@ -1,0 +1,78 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 7vmin;
+  pointer-events: none;
+  float: left;
+  padding-left: 0.5rem;
+}
+
+.App-buttons {
+  display: flex; /* Aligns buttons horizontally */
+  gap: 1rem; /* Optional: Space between buttons */
+  padding-right: 0.5rem;
+  color: white;
+}
+
+.App-buttonLogIn, .App-buttonSingUp {
+  background-color: #262626;
+  height: 8vmin;
+  width: 12vmin;
+  text-align: center;
+  justify-content: center;
+  font-size: 3vmin;
+  float: right;
+  border: none;
+  color: inherit;
+}
+
+.App-buttonLogIn a, .App-buttonSingUp a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.App-buttonLogIn:hover, .App-buttonSingUp:hover {
+  color: #b825ba;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: inherit ;
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-body {
+  background-color: #222222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
