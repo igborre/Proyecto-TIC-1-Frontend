@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.jpeg';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import About from './Components/About';
+import LogIn from './Components/LogIn';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
                 </a>
               </button>
               <button className="App-buttonLogIn">
-                <Link to="/about">
+                <Link to="/LogIn">
                   Log In
                 </Link>
               </button>
@@ -28,7 +28,7 @@ function App() {
 
           <div className="App-body">
           <Routes>
-            <Route path="/about" element={<About />} />
+            <Route path="/LogIn" element={<LogIn />} />
           </Routes>
           </div>
         </div>
