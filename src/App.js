@@ -4,25 +4,10 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import LogIn from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
+import Auth from './Utils/Auth';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    const savedState = localStorage.getItem('isLoggedIn');
-    return savedState === 'true'; // Convert string to boolean
-  });
-
-  // Update localStorage whenever isLoggedIn changes
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn);
-  }, [isLoggedIn]);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
+  const { isLoggedIn, handleLogin, handleLogout } = Auth();
 
   return (
       <Router>
