@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import "./SignUp.css";
+import Auth from "../Utils/Auth";
 
 const SignUp = () => {
+
+  const {getData} = Auth();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -64,6 +68,7 @@ const SignUp = () => {
         if (response.ok) {
           const data = await response.json();
           console.log("Login successful:", data);
+          getData(data)
           // Handle success, like redirecting to another page
         } else {
           console.error(

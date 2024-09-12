@@ -2,11 +2,21 @@ import { useState, useEffect } from 'react';
 
 const Auth = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userData, setUserData] = useState(null);
 
     // Update localStorage whenever isLoggedIn changes
     useEffect(() => {
         localStorage.setItem('isLoggedIn', isLoggedIn);
-    }, [isLoggedIn]);
+        if (userData) {
+            localStorage.setItem('userData', JSON.stringify(userData));
+        } else {
+            localStorage.removeItem('userData');
+        }
+    }, [isLoggedIn, userData]);
+
+    const getData = (data) => {
+        setUserData(data);
+    }
 
     const handleLogin = () => {
         setIsLoggedIn(true);
@@ -14,9 +24,10 @@ const Auth = () => {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
+        setUserData(null);
     };
 
-    return { isLoggedIn, handleLogin, handleLogout };
+    return { isLoggedIn, userData, handleLogin, handleLogout, getData };
 };
 
 export default Auth;
