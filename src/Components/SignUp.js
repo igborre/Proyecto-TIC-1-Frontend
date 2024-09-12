@@ -53,7 +53,7 @@ const SignUp = () => {
       try {
         console.log(JSON.stringify(formData));
         // TODO: tener un endpoint de verdad
-        const response = await fetch("http://localhost:8080/api/signup", {
+        const response = await fetch("http://localhost:8081/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -66,7 +66,11 @@ const SignUp = () => {
           console.log("Login successful:", data);
           // Handle success, like redirecting to another page
         } else {
-          console.error("Error logging in:", response.statusText);
+          console.error(
+            "Error logging in:",
+            response.statusText,
+            response.text
+          );
         }
       } catch (error) {
         console.error("Error:", error);
