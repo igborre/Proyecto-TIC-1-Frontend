@@ -35,7 +35,7 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.SingUp-buttons {
   width: 100%;
   padding: 10px;
   background-color: #28a745;
@@ -45,7 +45,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.SingUp-button:hover {
   background-color: #218838;
 }
 
