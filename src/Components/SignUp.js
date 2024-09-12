@@ -28,6 +28,8 @@ const SignUp = () => {
     if (!formData.email.trim()) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      // ---------^^ Esto es magiaGPT
+      // Entiendo que lo que hace es verificar que el mail sea de formato valido (algo@algo.algo)
       errors.email = "Email is invalid";
     }
     if (!formData.password) {
@@ -51,7 +53,7 @@ const SignUp = () => {
       try {
         console.log(JSON.stringify(formData));
         // TODO: tener un endpoint de verdad
-        const response = await fetch("http://localhost:8081/auth/signup", {
+        const response = await fetch("http://localhost:8080/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
