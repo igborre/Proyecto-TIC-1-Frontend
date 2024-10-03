@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import logo from "./logo.jpeg";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation} from "react-router-dom";
 import LogIn from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
 import Auth from './Utils/Auth';
+import Cartelera from "./Components/Cartelera";
+
+// Se podira sacar de aca, y implementar el header afuera?
 
 function App() {
   const { isLoggedIn, handleLogin, handleLogout } = Auth();
+  const location = useLocation();
 
   return (
-      <Router>
         <div className="App">
           <header className="App-header">
             {isLoggedIn ? (
@@ -31,6 +34,15 @@ function App() {
                 </>
             )}
           </header>
+          {location.pathname === '/' &&
+              <div className="App-body">
+                  <div className=".cartelera">
+                    <Cartelera />
+                  </div>
+              </div>
+          }
+
+
 
           <div className="App-body">
             <Routes>
@@ -39,7 +51,6 @@ function App() {
             </Routes>
           </div>
         </div>
-      </Router>
   );
 }
 
