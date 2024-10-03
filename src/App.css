@@ -43,7 +43,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .App-header {
@@ -57,9 +56,10 @@
 }
 
 .App-body {
+  padding: calc(10px + 2vmin);
   background-color: #222222;
   min-height: 100vh;
-  display: flex;
+
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
