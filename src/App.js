@@ -10,7 +10,6 @@ function App() {
   const { isLoggedIn, handleLogin, handleLogout } = Auth();
 
   return (
-      <Router>
         <div className="App">
           <header className="App-header">
             {isLoggedIn ? (
@@ -39,7 +38,7 @@ function App() {
             </Routes>
           </div>
         </div>
-      </Router>
+
   );
 }
 
