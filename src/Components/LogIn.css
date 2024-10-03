@@ -2,10 +2,10 @@
     width: 400px;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 2px solid violet; /* Marco violeta */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Fondo claro para mayor contraste */
 }
 
 h2 {
@@ -35,22 +35,41 @@ input {
     box-sizing: border-box;
 }
 
+.LogIn-container {
+    display: flex;
+    justify-content: center; /* Centra el contenedor de botones horizontalmente */
+    margin: 50px auto; /* Margen superior e inferior */
+}
+
+.LogIn-buttons-container {
+    width: 400px; /* Ajusta este valor según el ancho deseado */
+    padding: 20px; /* Espaciado interno */
+    border: 2px solid #c582ee; /* Marco violeta */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #c582ee; /* Fondo violeta */
+}
+
 .LogIn-buttons {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 100%; /* Mantiene los botones al 100% del contenedor */
+    padding: 10px; /* Espaciado interno */
+    color: #32184a; /* Letras blancas */
+    border: snow; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    margin: 10px 0; /* Espacio entre botones */
+    transition: background-color 0.3s; /* Transición suave al cambiar el color */
+    font-size: 16px; /* Tamaño de la fuente */
+    font-weight: bold; /* Grosor de letras más grueso */
 }
 
+/* Efecto hover para los botones */
 .LogIn-buttons:hover {
-    background-color: #218838;
+    background-color: #b56cc4; /* Cambiar a un color más oscuro al pasar el cursor */
 }
 
-.error {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 5px;
-}
+
+
+
+
+
+
