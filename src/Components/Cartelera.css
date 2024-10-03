@@ -1,9 +1,9 @@
 .Cartelera-Container {
-    float: left;
+    float: right;
     width: 20vmin;
     height: 20vmin;
     padding: 20px;
-    background-color: #4e104f;
-    border: 1px solid #340b35;
+    background-color: #410b42;
+    border: 3px solid #36083a;
     border-radius: 8px;
 }

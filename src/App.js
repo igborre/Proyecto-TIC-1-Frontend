@@ -36,9 +36,7 @@ function App() {
           </header>
           {location.pathname === '/' &&
               <div className="App-body">
-                  <div className=".cartelera">
                     <Cartelera />
-                  </div>
               </div>
           }
 
