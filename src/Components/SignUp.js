@@ -1,10 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, { useState } from "react";
 import "./SignUp.css";
 import Auth from "../Utils/Auth";
+import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
 
 const SignUp = () => {
-
-  const {getData} = Auth();
+  const { getData } = Auth();
+  const navigate = useNavigate(); // Inicializar useNavigate para la redirección
 
   const [formData, setFormData] = useState({
     username: "",
@@ -32,8 +33,6 @@ const SignUp = () => {
     if (!formData.email.trim()) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      // ---------^^ Esto es magiaGPT
-      // Entiendo que lo que hace es verificar que el mail sea de formato valido (algo@algo.algo)
       errors.email = "Email is invalid";
     }
     if (!formData.password) {
@@ -55,8 +54,6 @@ const SignUp = () => {
       setErrors(validationErrors);
     } else {
       try {
-        console.log(JSON.stringify(formData));
-        // TODO: tener un endpoint de verdad
         const response = await fetch("http://localhost:8081/auth/signup", {
           method: "POST",
           headers: {
@@ -67,15 +64,13 @@ const SignUp = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Login successful:", data);
-          getData(data)
-          // Handle success, like redirecting to another page
+          console.log("Sign up successful:", data);
+          getData(data); // Actualiza los datos del usuario
+
+          // Redirige a la página de reservas después del registro exitoso
+          navigate("/reserva");
         } else {
-          console.error(
-            "Error logging in:",
-            response.statusText,
-            response.text
-          );
+          console.error("Error signing up:", response.statusText, await response.text());
         }
       } catch (error) {
         console.error("Error:", error);
@@ -84,62 +79,62 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-container">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-          {errors.name && <span className="error">{errors.name}</span>}
-        </div>
+      <div className="signup-container">
+        <h2>Sign Up</h2>
+        <form onSubmit={handleSubmit} className="signup-form">
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+            />
+            {errors.username && <span className="error">{errors.username}</span>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {errors.password && <span className="error">{errors.password}</span>}
-        </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+            />
+            {errors.password && <span className="error">{errors.password}</span>}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          {errors.confirmPassword && (
-            <span className="error">{errors.confirmPassword}</span>
-          )}
-        </div>
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+            />
+            {errors.confirmPassword && (
+                <span className="error">{errors.confirmPassword}</span>
+            )}
+          </div>
 
-        <button type="submit" className="SingUp-buttons">Sign Up</button>
-      </form>
-    </div>
+          <button type="submit" className="SignUp-buttons">Sign Up</button>
+        </form>
+      </div>
   );
 };
 
