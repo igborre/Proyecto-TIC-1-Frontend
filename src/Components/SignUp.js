@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import Auth from "../Utils/Auth";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
+import axiosInstance from "../Utils/AxiosConfig";
 
-const SignUp = () => {
+const SignUp = ({ onLogIn }) => {
   const { getData } = Auth();
   const navigate = useNavigate(); // Inicializar useNavigate para la redirección
 
@@ -54,23 +55,26 @@ const SignUp = () => {
       setErrors(validationErrors);
     } else {
       try {
-        const response = await fetch("http://localhost:8081/auth/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await axiosInstance.post(
+          "http://localhost:8080/api/v1/users/register",
+          {
+            body: JSON.stringify(formData),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
           console.log("Sign up successful:", data);
           getData(data); // Actualiza los datos del usuario
-
+          onLogIn();
           // Redirige a la página de reservas después del registro exitoso
           navigate("/reserva");
         } else {
-          console.error("Error signing up:", response.statusText, await response.text());
+          console.error(
+            "Error signing up:",
+            response.statusText,
+            await response.text()
+          );
         }
       } catch (error) {
         console.error("Error:", error);
@@ -79,62 +83,64 @@ const SignUp = () => {
   };
 
   return (
-      <div className="signup-container">
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit} className="signup-form">
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-            />
-            {errors.username && <span className="error">{errors.username}</span>}
-          </div>
+    <div className="signup-container">
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit} className="signup-form">
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          {errors.username && <span className="error">{errors.username}</span>}
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-            />
-            {errors.email && <span className="error">{errors.email}</span>}
-          </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {errors.email && <span className="error">{errors.email}</span>}
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-            />
-            {errors.password && <span className="error">{errors.password}</span>}
-          </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {errors.password && <span className="error">{errors.password}</span>}
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-            />
-            {errors.confirmPassword && (
-                <span className="error">{errors.confirmPassword}</span>
-            )}
-          </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+          {errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword}</span>
+          )}
+        </div>
 
-          <button type="submit" className="SignUp-buttons">Sign Up</button>
-        </form>
-      </div>
+        <button type="submit" className="SignUp-buttons">
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 };
 

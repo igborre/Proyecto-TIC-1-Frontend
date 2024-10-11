@@ -26,7 +26,7 @@ const App = () => {
       <div className="App-body">
         <Routes>
           <Route path="/LogIn" element={<LogIn onLogIn={handleLogin} />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/SignUp" element={<SignUp onLogIn={handleLogin} />} />
           <Route path="/Reserva" element={<Reserva />} />
           <Route path="/Movies" element={<MovieList />} />
         </Routes>
@@ -34,6 +34,5 @@ const App = () => {
     </div>
   );
 };
-
 
 export default App;
