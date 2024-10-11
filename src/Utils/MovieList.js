@@ -1,7 +1,7 @@
 // src/components/MovieList.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./MovieList.css"; // Import the CSS file
+import axiosInstance from "./AxiosConfig";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -11,7 +11,16 @@ const MovieList = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/movies");
+        const response = await axiosInstance.get("/api/v1/movies");
+        const movieData = response.data;
+        if (movieData.image) {
+          // Convert byte array to base64 string
+          const base64Image = btoa(
+            String.fromCharCode(...new Uint8Array(movieData.image))
+          );
+          movieData.image = `data:image/jpeg;base64,${base64Image}`; // Adjust image type if needed
+        }
+
         setMovies(response.data);
         setLoading(false);
       } catch (err) {
@@ -33,9 +42,8 @@ const MovieList = () => {
         {movies.map((movie) => (
           <li key={movie.id} className="movie-list-item">
             <div className="movie-title">{movie.title}</div>
-            <div className="movie-info">
-              {movie.genre} - {movie.releaseDate}
-            </div>
+            <div className="movie-info">{movie.description}</div>
+            {movie.image && <img src={movie.image} alt={movie.title} />}
           </li>
         ))}
       </ul>

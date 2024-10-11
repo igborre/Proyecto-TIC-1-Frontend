@@ -55,29 +55,28 @@ const SignUp = ({ onLogIn }) => {
       setErrors(validationErrors);
     } else {
       try {
+        console.log(formData);
         const response = await axiosInstance.post(
-          "http://localhost:8080/api/v1/users/register",
-          {
-            body: JSON.stringify(formData),
-          }
+          "/api/v1/users/register",
+          formData // Send the form data directly
         );
 
-        if (response.ok) {
-          const data = await response.json();
+        if (response.status === 200 || response.status === 201) {
+          // Assuming 200 or 201 for success
+          const data = response.data;
           console.log("Sign up successful:", data);
-          getData(data); // Actualiza los datos del usuario
+          getData(data); // Update user data
           onLogIn();
-          // Redirige a la página de reservas después del registro exitoso
-          navigate("/reserva");
+          navigate("/reserva"); // Redirect to reservations
         } else {
           console.error(
             "Error signing up:",
-            response.statusText,
-            await response.text()
+            response.status,
+            response.statusText
           );
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error:", error.response ? error.response.data : error);
       }
     }
   };
@@ -136,7 +135,7 @@ const SignUp = ({ onLogIn }) => {
           )}
         </div>
 
-        <button type="submit" className="SignUp-buttons">
+        <button type="submit" className="SignUp-button">
           Sign Up
         </button>
       </form>
