@@ -8,6 +8,7 @@ import Reserva from "./Components/Reserva"; // Asegúrate de tener el componente
 import LoggedInHeader from "./Components/LoggedInHeader";
 import LoggedOutHeader from "./Components/LoggedOutHeader.js";
 import MovieList from "./Utils/MovieList.js";
+import Home from "./Components/Home.js";
 
 // Main App Component
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
 
       <div className="App-body">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/LogIn" element={<LogIn onLogIn={handleLogin} />} />
           <Route path="/SignUp" element={<SignUp onLogIn={handleLogin} />} />
           <Route path="/Reserva" element={<Reserva />} />
