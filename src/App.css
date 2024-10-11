@@ -16,7 +16,7 @@
   color: #ffffff;
 }
 
-.App-buttonLogIn, .App-buttonSingUp {
+.App-button {
   background-color: inherit;
   height: 8vmin;
   width: 15vmin;
@@ -28,16 +28,16 @@
   color: inherit;
 }
 
-.App-buttonLogIn a, .App-buttonSingUp a {
+.App-button a {
   color: inherit;
   text-decoration: none;
 }
 
-.App-buttonLogIn:hover, .App-buttonSingUp:hover {
+.App-button:hover {
   color: #b825ba;
 }
 
-.App-forms{
+.App-forms {
   display: flex;
   float: inherit;
   flex-direction: column;
@@ -46,7 +46,7 @@
 }
 
 .App-header {
-  background-color: #262626 ;
+  background-color: #262626;
   min-height: 10vh;
   display: flex;
   align-items: center;
