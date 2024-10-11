@@ -68,3 +68,35 @@
 .App-link {
   color: #61dafb;
 }
+
+.App-footer {
+  background-color: #222; /* Dark background */
+  color: #fff; /* White text */
+  text-align: center; /* Centered text */
+  padding: 20px 0; /* Vertical padding */
+  position: relative; /* Allows positioning of child elements */
+  bottom: 0; /* Stick to bottom of the page */
+  width: 100%; /* Full width */
+}
+
+/* Links in Footer */
+.App-footer a {
+  color: #7e3c83; /* Link color */
+  text-decoration: none; /* No underline */
+  margin: 0 15px; /* Space between links */
+}
+
+.App-footer a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Sacar? */
+@media (max-width: 600px) {
+  .App-footer {
+    font-size: 14px; /* Smaller font on small screens */
+  }
+
+  .App-footer a {
+    margin: 0 10px; /* Reduced space between links */
+  }
+}
