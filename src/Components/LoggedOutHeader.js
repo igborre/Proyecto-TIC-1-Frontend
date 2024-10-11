@@ -9,17 +9,17 @@ const LoggedOutHeader = () => (
       <img src={logo} className="App-logo" alt="logo" />
     </Link>
     <div className="App-buttons">
-      <Link to="/SignUp" className="link-style">
-        <Button>Sign Up</Button>
-      </Link>
-      <Link to="/LogIn" className="link-style">
-        <Button>Log In</Button>
+      <Link to="/Movies" className="link-style">
+        <Button>Movies</Button>
       </Link>
       <Link to="/Reserva" className="link-style">
         <Button>Reservas</Button>
       </Link>
-      <Link to="/Movies" className="link-style">
-        <Button>Movies</Button>
+      <Link to="/LogIn" className="link-style">
+        <Button>Log In</Button>
+      </Link>
+      <Link to="/SignUp" className="link-style">
+        <Button>Sign Up</Button>
       </Link>
     </div>
   </>
