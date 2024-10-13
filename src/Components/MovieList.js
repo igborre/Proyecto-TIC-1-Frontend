@@ -5,6 +5,9 @@ import axiosInstance from "../Utils/AxiosConfig";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
+  const [currentMovieIndex, setMovieIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState("");
+  const [animating, setAnimating] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -12,6 +15,11 @@ const MovieList = () => {
     const fetchMovies = async () => {
       try {
         const response = await axiosInstance.get("/api/v1/movies");
+        // fuck
+        // TODO evitar que cada vez que halla una interaccion con el componente se haga la
+        // llama al backend
+        // ejemplo: sacar esta funcion del useEffect
+        console.log("Fetching movies to backend");
         setMovies(response.data);
         setLoading(false);
       } catch (err) {
@@ -21,28 +29,81 @@ const MovieList = () => {
     };
 
     fetchMovies();
-  }, []);
+    const timeout = setTimeout(() => {
+      setSlideDirection("");
+      setAnimating(false);
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [slideDirection]);
+
+  const handleNext = () => {
+    setAnimating(true);
+    setSlideDirection("next");
+    setMovieIndex((prevIndex) => (prevIndex + 1) % movies.length);
+  };
+
+  const handlePrevious = () => {
+    setAnimating(true);
+    setSlideDirection("prev");
+    setMovieIndex((prevIndex) =>
+      prevIndex === 0 ? movies.length - 1 : prevIndex - 1
+    );
+  };
+
+  const currentMovie = movies[currentMovieIndex];
+  const prevIndex =
+    slideDirection === "next"
+      ? (currentMovieIndex - 1 + movies.length) % movies.length
+      : (currentMovieIndex + 1) % movies.length;
+  const prevMovie = movies[prevIndex];
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="movie-list-container">
-      <h1 className="movie-list-header">Movie List</h1>
-      <ul className="movie-list">
-        {movies.map((movie) => (
-          <li key={movie.id} className="movie-list-item">
-            <div className="movie-title">{movie.title}</div>
-            <div className="movie-info">{movie.description}</div>
-            {movie.image && (
+    <div className="movie-container">
+      <div className="movie-wrapper">
+        <div
+          className={`movie-list-item ${
+            slideDirection ? `slide-out-${slideDirection}` : ""
+          }`}
+        >
+          <div className="movie-title">
+            {animating ? prevMovie.title : currentMovie.title}
+          </div>
+          <div className="movie-info">
+            {animating ? prevMovie.description : currentMovie.description}
+          </div>
+          {currentMovie.image && (
+            <img
+              src={`data:image/jpeg;base64,${currentMovie.image}`}
+              alt={currentMovie.title}
+            />
+          )}
+        </div>
+
+        {slideDirection && (
+          <div className={`movie-list-item slide-in-${slideDirection}`}>
+            <div className="movie-title">{currentMovie.title}</div>
+            <div className="movie-info">{currentMovie.description}</div>
+            {currentMovie.image && (
               <img
-                src={`data:image/jpeg;base64,${movie.image}`}
-                alt={movie.title}
+                src={`data:image/jpeg;base64,${currentMovie.image}`}
+                alt={currentMovie.title}
               />
             )}
-          </li>
-        ))}
-      </ul>
+          </div>
+        )}
+      </div>
+
+      <div className="navigation-buttons">
+        <button onClick={handlePrevious} disabled={animating}>
+          Previous
+        </button>
+        <button onClick={handleNext} disabled={animating}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };

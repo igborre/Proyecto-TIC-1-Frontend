@@ -28,9 +28,6 @@ const App = () => {
         <Link to="/">
           <img src={logo} className="App-logo" alt="logo" />
         </Link>
-        <Link to="/Movies" className="link-style">
-          <Button>Movies</Button>
-        </Link>
         <Link to="/Reserva" className="link-style">
           <Button>Reservas</Button>
         </Link>

@@ -1,51 +1,139 @@
-/* src/components/MovieList.css */
-.movie-list-container {
-  width: 80%;
+.movie-container {
+  position: relative;
+  width: 300px;
+  height: 400px;
   margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
   padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.movie-list-header {
-  text-align: center;
-  color: #333;
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-.movie-list {
-  list-style-type: none;
-  padding: 0;
+.movie-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .movie-list-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  transition: transform 0.2s ease;
-}
-
-.movie-list-item:hover {
-  transform: translateY(-5px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 1;
+  will-change: transform;
+  transition: transform 0.5s ease;
 }
 
 .movie-title {
-  font-weight: bold;
-  font-size: 18px;
-  color: #007bff;
+  color: black;
 }
 
 .movie-info {
-  color: #666;
-  margin-top: 5px;
+  color: black;
 }
 
-.loading,
-.error {
-  text-align: center;
-  color: #999;
+/* Slide current movie out to the left for "next" */
+.slide-out-next {
+  z-index: 1;
+  transform: translateX(0);
+  animation: slideOutLeft 0.5s forwards;
+}
+
+/* Slide next movie in from the right for "next" */
+.slide-in-next {
+  z-index: 2;
+  transform: translateX(100%);
+  animation: slideInLeft 0.5s forwards;
+}
+
+/* Slide current movie out to the right for "previous" */
+.slide-out-prev {
+  z-index: 1;
+  transform: translateX(0);
+  animation: slideOutRight 0.5s forwards;
+}
+
+/* Slide previous movie in from the left for "previous" */
+.slide-in-prev {
+  z-index: 2;
+  transform: translateX(-100%);
+  animation: slideInRight 0.5s forwards;
+}
+
+/* Slide out keyframes */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Slide in keyframes */
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Buttons container */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navigation-buttons button {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.navigation-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.navigation-buttons button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
 }
