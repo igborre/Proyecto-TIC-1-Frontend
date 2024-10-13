@@ -1,6 +1,6 @@
-import pfp from "./pfp.png";
+import pfp from "../img/pfp.png";
 import { useState, useEffect, useRef } from "react";
-import "./ProfileMenu.css";
+import "../styles/ProfileMenu.css";
 import { Link } from "react-router-dom";
 
 const ProfileMenu = () => {

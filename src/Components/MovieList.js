@@ -1,7 +1,7 @@
 // src/components/MovieList.js
 import React, { useState, useEffect } from "react";
-import "./MovieList.css"; // Import the CSS file
-import axiosInstance from "./AxiosConfig";
+import "../styles/MovieList.css"; // Import the CSS file
+import axiosInstance from "../Utils/AxiosConfig";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);

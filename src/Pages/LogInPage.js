@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axiosInstance from "../Utils/AxiosConfig";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
-import "./LogIn.css"; // Asegúrate de tener el archivo CSS correspondiente
+import "../styles/LogIn.css"; // Asegúrate de tener el archivo CSS correspondiente
 import Auth from "../Utils/Auth";
 
 const LogIn = () => {
