@@ -12,15 +12,6 @@ const MovieList = () => {
     const fetchMovies = async () => {
       try {
         const response = await axiosInstance.get("/api/v1/movies");
-        const movieData = response.data;
-        if (movieData.image) {
-          // Convert byte array to base64 string
-          const base64Image = btoa(
-            String.fromCharCode(...new Uint8Array(movieData.image))
-          );
-          movieData.image = `data:image/jpeg;base64,${base64Image}`; // Adjust image type if needed
-        }
-
         setMovies(response.data);
         setLoading(false);
       } catch (err) {
@@ -43,7 +34,12 @@ const MovieList = () => {
           <li key={movie.id} className="movie-list-item">
             <div className="movie-title">{movie.title}</div>
             <div className="movie-info">{movie.description}</div>
-            {movie.image && <img src={movie.image} alt={movie.title} />}
+            {movie.image && (
+              <img
+                src={`data:image/jpeg;base64,${movie.image}`}
+                alt={movie.title}
+              />
+            )}
           </li>
         ))}
       </ul>

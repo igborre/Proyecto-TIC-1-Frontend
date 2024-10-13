@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"; // Importar useNavigate para red
 import axiosInstance from "../Utils/AxiosConfig";
 
 const SignUp = ({ onLogIn }) => {
-  const { getData } = Auth();
+  const { setData } = Auth();
   const navigate = useNavigate(); // Inicializar useNavigate para la redirección
 
   const [formData, setFormData] = useState({
@@ -65,9 +65,9 @@ const SignUp = ({ onLogIn }) => {
           // Assuming 200 or 201 for success
           const data = response.data;
           console.log("Sign up successful:", data);
-          getData(data); // Update user data
+          setData(data);
           onLogIn();
-          navigate("/reserva"); // Redirect to reservations
+          navigate("/");
         } else {
           console.error(
             "Error signing up:",

@@ -1,33 +1,20 @@
-import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const Auth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
-
   // Update localStorage whenever isLoggedIn changes
-  useEffect(() => {
-    localStorage.setItem("isLoggedIn", isLoggedIn);
-    if (userData) {
-      localStorage.setItem("userData", JSON.stringify(userData));
-    } else {
-      localStorage.removeItem("userData");
+
+  const handleLogin = (jwtToken) => {
+    if (jwtToken) {
+      Cookies.set("jwtToken", jwtToken);
+      console.log("Updated cookie 'jwtToken': ", Cookies.get("jwtToken"));
+      Cookies.set("isLoggedIn", "true");
+      console.log("Updated cookie 'isLoggedIn': ", Cookies.get("isLoggedIn"));
     }
-  }, [isLoggedIn, userData]);
-
-  const getData = (data) => {
-    setUserData(data);
   };
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
+  const handleLogout = () => {};
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserData(null);
-  };
-
-  return { isLoggedIn, userData, handleLogin, handleLogout, getData };
+  return { handleLogin, handleLogout };
 };
 
 export default Auth;

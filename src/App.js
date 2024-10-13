@@ -3,7 +3,6 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import LogIn from "./Components/LogIn";
 import SignUp from "./Components/SignUp.js";
-import Auth from "./Utils/Auth";
 import Reserva from "./Components/Reserva";
 import LoggedInHeader from "./Components/LoggedInHeader";
 import LoggedOutHeader from "./Components/LoggedOutHeader.js";
@@ -13,10 +12,15 @@ import Home from "./Components/Home.js";
 import { Link } from "react-router-dom";
 import logo from "./logo.jpeg";
 import Button from "./Components/Button.js";
+import Cookies from "js-cookie";
 
 // Main App Component
 const App = () => {
-  const { isLoggedIn, handleLogin, handleLogout } = Auth();
+  const isLoggedIn = Cookies.get("isLoggedIn");
+  const showCookies = () => {
+    console.log("jwtToken: ", Cookies.get("jwtToken"));
+    console.log("isLoggedIn: ", Cookies.get("isLoggedIn"));
+  };
 
   return (
     <div className="App">
@@ -30,18 +34,16 @@ const App = () => {
         <Link to="/Reserva" className="link-style">
           <Button>Reservas</Button>
         </Link>
-        {isLoggedIn ? (
-          <LoggedInHeader handleLogout={handleLogout} />
-        ) : (
-          <LoggedOutHeader />
-        )}
+        {/* TODO: Borrar este boton porque es para debug */}
+        <button onClick={showCookies}>Show Cookies</button>
+        {isLoggedIn === "true" ? <LoggedInHeader /> : <LoggedOutHeader />}
       </header>
 
       <div className="App-body">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/logIn" element={<LogIn onLogIn={handleLogin} />} />
-          <Route path="/signUp" element={<SignUp onLogIn={handleLogin} />} />
+          <Route path="/logIn" element={<LogIn />} />
+          <Route path="/signUp" element={<SignUp />} />
           <Route path="/reserva" element={<Reserva />} />
           <Route path="/movies" element={<MovieList />} />
           <Route path="movieUpload" element={<MovieUpload />} />

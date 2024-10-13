@@ -1,10 +1,7 @@
-const LoggedInHeader = ({ handleLogout }) => {
+const LoggedInHeader = () => {
   return (
     <>
-      <p>Bienvenido a la App de Reservas</p>
-      <button className="logout-button" onClick={handleLogout}>
-        Cerrar Sesión
-      </button>
+      <button className="logout-button">Cerrar Sesión</button>
     </>
   );
 };

@@ -2,26 +2,29 @@ import React, { useState } from "react";
 import axiosInstance from "../Utils/AxiosConfig";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
 import "./LogIn.css"; // Asegúrate de tener el archivo CSS correspondiente
+import Auth from "../Utils/Auth";
 
-const LogIn = ({ onLogIn }) => {
-  // Configurar la URL base para Axios
-
+const LogIn = () => {
   // Estados para el correo electrónico y la contraseña
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { handleLogin } = Auth();
   const navigate = useNavigate(); // Inicializar useNavigate
 
   // Función para manejar el inicio de sesión con email
-  const handleLogin = async () => {
+  const handleSubmit = async () => {
     try {
       const response = await axiosInstance.post("/api/v1/users/login", {
         username,
         password,
       });
       console.log("Login successful:", response.data);
-      onLogIn(); // Si hay un callback para manejar el inicio de sesión
-      navigate("/reserva"); // Redirigir a la página de reserva
+      const jwtToken = response.data["jwt"];
+      console.log("Retrieved token: ", jwtToken);
+      handleLogin(jwtToken);
+      navigate("/");
     } catch (error) {
+      // TODO: Mostrar que hubo un error con el log in
       console.error("Error during username login:", error);
     }
   };
@@ -42,7 +45,7 @@ const LogIn = ({ onLogIn }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin} className="LogIn-buttons">
+        <button onClick={handleSubmit} className="LogIn-buttons">
           Login
         </button>
       </div>
