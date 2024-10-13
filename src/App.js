@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import logo from "./logo.jpeg";
 import Button from "./Components/Button.js";
 import Cookies from "js-cookie";
+import Profile from "./Pages/ProfilePage.js";
 
 // Main App Component
 const App = () => {
@@ -43,7 +44,8 @@ const App = () => {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/reserva" element={<Reserva />} />
           <Route path="/movies" element={<MovieList />} />
-          <Route path="movieUpload" element={<MovieUpload />} />
+          <Route path="/movieUpload" element={<MovieUpload />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </div>

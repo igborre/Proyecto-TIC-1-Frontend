@@ -1,5 +1,5 @@
 import pfp from "../img/pfp.png";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import "../styles/ProfileMenu.css";
 import { Link } from "react-router-dom";
 
@@ -56,10 +56,10 @@ const ProfileMenu = () => {
           style={{ top: menuPosition.top, left: menuPosition.left }}
         >
           <ul>
-            <Link to="/Profile">
+            <Link to="/profile">
               <li>Profile</li>
             </Link>
-            <Link to="/Settings">
+            <Link to="/settings">
               <li>Settings</li>
             </Link>
             <Link to="/">
