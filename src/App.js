@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import LogIn from "./Components/LogIn";
 import SignUp from "./Components/SignUp.js";
 import Reserva from "./Components/Reserva";
-import LoggedInHeader from "./Components/LoggedInHeader";
+import ProfileMenu from "./Components/ProfileMenu";
 import LoggedOutHeader from "./Components/LoggedOutHeader.js";
 import MovieList from "./Utils/MovieList.js";
 import MovieUpload from "./Components/MovieUpload.js";
@@ -36,7 +36,7 @@ const App = () => {
         </Link>
         {/* TODO: Borrar este boton porque es para debug */}
         <button onClick={showCookies}>Show Cookies</button>
-        {isLoggedIn === "true" ? <LoggedInHeader /> : <LoggedOutHeader />}
+        {isLoggedIn === "true" ? <ProfileMenu /> : <LoggedOutHeader />}
       </header>
 
       <div className="App-body">
