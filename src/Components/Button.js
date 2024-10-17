@@ -1,4 +1,4 @@
-import "./Button.css";
+import "../styles/Button.css";
 
 const Button = ({ children }) => {
   return <button className="buttonStyle">{children}</button>;
