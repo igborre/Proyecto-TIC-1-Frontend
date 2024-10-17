@@ -1,0 +1,36 @@
+.profile-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.floating-dropdown {
+  position: absolute; /* or use 'fixed' if you want it to remain static when scrolling */
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 150px;
+}
+
+.floating-dropdown ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.floating-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+}
+
+.floating-dropdown li:hover {
+  background-color: #f0f0f0;
+}

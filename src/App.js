@@ -1,39 +1,55 @@
 import React from "react";
-import "./App.css";
+import "./styles/App.css";
 import { Route, Routes } from "react-router-dom";
-import LogIn from "./Components/LogIn";
-import SignUp from "./Components/SignUp.js";
-import Auth from "./Utils/Auth";
-import Reserva from "./Components/Reserva"; // Asegúrate de tener el componente de Reserva
-import LoggedInHeader from "./Components/LoggedInHeader";
+import LogIn from "./Pages/LogInPage.js";
+import SignUp from "./Pages/RegisterPage.js";
+import Reserva from "./Pages/ReservationsPage.js";
+import ProfileMenu from "./Components/ProfileMenu";
 import LoggedOutHeader from "./Components/LoggedOutHeader.js";
-import MovieList from "./Utils/MovieList.js";
+import MovieList from "./Components/MovieList.js";
+import MovieUpload from "./Pages/MovieUploadPage.js";
+import Home from "./Pages/HomePage.js";
+import { Link } from "react-router-dom";
+import logo from "./logo.jpeg";
+import Button from "./Components/Button.js";
+import Cookies from "js-cookie";
+import Profile from "./Pages/ProfilePage.js";
 
 // Main App Component
 const App = () => {
-  const { isLoggedIn, handleLogin, handleLogout } = Auth();
+  const isLoggedIn = Cookies.get("isLoggedIn");
+  const showCookies = () => {
+    console.log("jwtToken: ", Cookies.get("jwtToken"));
+    console.log("isLoggedIn: ", Cookies.get("isLoggedIn"));
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        {isLoggedIn ? (
-          <LoggedInHeader handleLogout={handleLogout} />
-        ) : (
-          <LoggedOutHeader />
-        )}
+        <Link to="/">
+          <img src={logo} className="App-logo" alt="logo" />
+        </Link>
+        <Link to="/Reserva" className="link-style">
+          <Button>Reservas</Button>
+        </Link>
+        {/* TODO: Borrar este boton porque es para debug */}
+        <button onClick={showCookies}>Show Cookies</button>
+        {isLoggedIn === "true" ? <ProfileMenu /> : <LoggedOutHeader />}
       </header>
 
       <div className="App-body">
         <Routes>
-          <Route path="/LogIn" element={<LogIn onLogIn={handleLogin} />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/Reserva" element={<Reserva />} />
-          <Route path="/Movies" element={<MovieList />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/logIn" element={<LogIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/reserva" element={<Reserva />} />
+          <Route path="/movies" element={<MovieList />} />
+          <Route path="/movieUpload" element={<MovieUpload />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </div>
   );
 };
-
 
 export default App;
