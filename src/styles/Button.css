@@ -10,6 +10,7 @@
   border: none; /* Remove border */
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Change cursor on hover */
+  margin: 5px;
 }
 
 .link-style {

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Reserva.css';
+import axiosInstance from "../Utils/AxiosConfig";
+
+// Queda terminar funciones para conseguir asientos y horas
+// Que las fechas posibles sean las de dates y no cualquiera
+// Mismo con horas y asientos
 
 const Reserva = () => {
     // opciones que el usuario puede seleccionar
@@ -10,17 +15,98 @@ const Reserva = () => {
     const [selectedLocation, setSelectedLocation] = useState('');
     const [movies, setMovies] = useState([]);
     const [locations, setLocations] = useState([]);
+    const [dates, setDates] = useState([]);
+    const [times, setTimes] = useState([]);
     const [availableSeats, setAvailableSeats] = useState([]);
+    const [screening, setScreening] = useState([]);
+    const [error, setError] = useState(null);
+
+    const resetSeats = async () => {
+        setSelectedSeats([]);
+        setAvailableSeats([])
+    }
+    const resetTime = async () => {
+        await resetSeats()
+        setSelectedTime('')
+        setTimes([])
+    }
+
+    const resetDate = async () => {
+        await resetTime()
+        setSelectedDate('')
+        setDates([])
+    }
+
 
     // Simulación de datos que podrían venir del backend
     useEffect(() => {
-        // Películas disponibles
-        setMovies(['Pelicula 1', 'Pelicula 2', 'Pelicula 3']);
-        // Localizaciones (cines o sucursales)
-        setLocations(['Cine 1', 'Cine 2', 'Cine 3']);
-        // Asientos disponibles
-        setAvailableSeats(['A1', 'A2', 'B1', 'B2']);
+        const fetchMovies = async () => {
+            try {
+                const response = await axiosInstance.get("/api/v1/movies");
+                console.log("Fetching movies to backend");
+                setMovies(response.data);
+            } catch (err) {
+                setError("Failed to load movies.");
+            }
+        };
+
+        fetchMovies();
+
     }, []);
+
+    useEffect(() => {
+        resetTime();
+        const fetchLocations = async () => {
+            try {
+                const response = await axiosInstance.get("/api/v1/movies/{selectedMovie.id}/screenings");
+                console.log("Fetching screenings to backend");
+                setScreening(response.data);
+                const newLocations = []
+                for (let i = 0; i < screening.length; i++) {
+                    if (!newLocations.includes(screening[i].location)) {
+                        newLocations.append(screening[i].location);
+                    }
+                }
+                setLocations(newLocations);
+            } catch (err) {
+                setError("Failed to load locations.");
+            }
+        };
+
+        fetchLocations();
+
+    }, [selectedMovie]);
+
+    useEffect(() => {
+        resetTime()
+        if (selectedMovie !== "") {
+            const  possibleDates = async () => {
+                const posDates = []
+                 // Se hace reset de las otras variables seleccionadas despues
+
+                for (let i = 0; i < screening.length; i++){
+                    // Se ve que sea en el cine seleccionado
+                    if (screening.location === selectedLocation) {
+                        if (!posDates.includes(screening[i].date)) {
+                            posDates.append(screening[i].date);
+                        }
+                    }
+                }
+                setDates(posDates)
+            }
+            possibleDates()}
+    }, [selectedLocation]);
+
+    useEffect(() => {
+        resetSeats()
+        if (selectedDate !== "")
+        setTimes();
+    }, [selectedDate])
+
+    useEffect(() => {
+        if (selectedTime !== "")
+        setAvailableSeats()
+    }, [selectedTime])
 
     // Manejar la selección de asientos
     const handleSeatSelection = (seat) => {
