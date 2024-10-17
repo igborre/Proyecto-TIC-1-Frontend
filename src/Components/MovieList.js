@@ -13,22 +13,22 @@ const MovieList = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      try {
-        const response = await axiosInstance.get("/api/v1/movies");
-        // fuck
-        // TODO evitar que cada vez que halla una interaccion con el componente se haga la
-        // llama al backend
-        // ejemplo: sacar esta funcion del useEffect
-        console.log("Fetching movies to backend");
-        setMovies(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load movies.");
-        setLoading(false);
-      }
-    };
+    try {
+      const response = await axiosInstance.get("/api/v1/movies");
+      console.log("Fetching movies to backend");
+      setMovies(response.data);
+      setLoading(false);
+    } catch (err) {
+      setError("Failed to load movies.");
+      setLoading(false);
+    }
+  };
 
     fetchMovies();
+
+  }, []);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setSlideDirection("");
       setAnimating(false);
