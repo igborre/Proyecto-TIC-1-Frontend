@@ -17,7 +17,7 @@ const Reserva = () => {
         // Películas disponibles
         setMovies(['Pelicula 1', 'Pelicula 2', 'Pelicula 3']);
         // Localizaciones (cines o sucursales)
-        setLocations(['Punta Carretas', 'Ciudad Vieja', 'Pocitos', 'Carrasco', 'Tres Cruces', 'Centro', 'Malvin' , 'Buceo' ]);
+        setLocations(['Cine 1', 'Cine 2', 'Cine 3']);
         // Asientos disponibles
         setAvailableSeats(['A1', 'A2', 'B1', 'B2']);
     }, []);
