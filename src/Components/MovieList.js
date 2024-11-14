@@ -14,14 +14,16 @@ const MovieList = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axiosInstance.get("/api/v1/movies");
         console.log("Fetching movies to backend");
+        const response = await axiosInstance.get(
+          "/api/v1/movies?page=0&size=5"
+        );
+        console.log(response.data.content);
         if (response.data.length === 0) {
-          console.log("No data");
           setError("No movies found.");
           setLoading(false);
         } else {
-          setMovies(response.data);
+          setMovies(response.data.content);
           setLoading(false);
         }
       } catch (err) {
@@ -81,7 +83,9 @@ const MovieList = () => {
           </div>
           {currentMovie.image && (
             <img
-              src={`data:image/jpeg;base64,${currentMovie.image}`}
+              src={`data:image/jpeg;base64,${
+                animating ? prevMovie.image : currentMovie.image
+              }`}
               alt={currentMovie.title}
             />
           )}

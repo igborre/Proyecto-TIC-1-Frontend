@@ -59,10 +59,7 @@ const ProfileMenu = () => {
             <Link to="/profile">
               <li>Profile</li>
             </Link>
-            <Link to="/settings">
-              <li>Settings</li>
-            </Link>
-            <Link to="/">
+            <Link to="/logout">
               <li>Logout</li>
             </Link>
           </ul>

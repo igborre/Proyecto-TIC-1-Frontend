@@ -14,6 +14,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+img {
+  max-width: 100%; /* La imagen no excederá el 100% del ancho de su contenedor */
+  max-height: 200px; /* La imagen no excederá los 300px de altura */
+  object-fit: contain; /* Asegura que la imagen se ajuste manteniendo sus proporciones */
+}
+
 .movie-wrapper {
   position: relative;
   width: 100%;

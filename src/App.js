@@ -14,6 +14,7 @@ import logo from "./logo.jpeg";
 import Button from "./Components/Button.js";
 import Cookies from "js-cookie";
 import Profile from "./Pages/ProfilePage.js";
+import Logout from "./Pages/LogoutPage.js";
 
 // Main App Component
 const App = () => {
@@ -25,8 +26,11 @@ const App = () => {
         <Link to="/">
           <img src={logo} className="App-logo" alt="logo" />
         </Link>
-        <Link to="/Reserva" className="link-style">
+        <Link to="/reserva" className="link-style">
           <Button>Reservas</Button>
+        </Link>
+        <Link to="/movieUpload">
+          <Button>Upload a Movie</Button>
         </Link>
         {isLoggedIn === "true" ? <ProfileMenu /> : <LoggedOutHeader />}
       </header>
@@ -40,6 +44,7 @@ const App = () => {
           <Route path="/movies" element={<MovieList />} />
           <Route path="/movieUpload" element={<MovieUpload />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </div>
     </div>
