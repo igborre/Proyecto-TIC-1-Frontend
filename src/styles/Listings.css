@@ -2,7 +2,7 @@
   display: grid; /* Define que los elementos hijos se alinearán en una cuadrícula */
   grid-template-columns: repeat(
     auto-fill,
-    minmax(400px, 1fr)
+    minmax(300px, 1fr)
   ); /* Crea columnas flexibles que se adaptan al tamaño de la pantalla */
   gap: 16px; /* Espaciado entre las tarjetas */
   padding: 20px;

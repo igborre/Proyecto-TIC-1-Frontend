@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../Utils/AxiosConfig";
 import "../styles/Listings.css";
+import { Link } from "react-router-dom";
 
 const Listings = () => {
   const [movies, setMovies] = useState([]);
@@ -40,10 +41,12 @@ const Listings = () => {
       <h1>Películas</h1>
       <div className="movies-grid">
         {movies.map((movie) => (
-          <div key={movie.id} className="movie-card">
-            <img src={`data:image/jpeg;base64,${movie.image}`} alt="foto" />
-            <h3>{movie.title}</h3>
-          </div>
+          <Link to={`/reserva?movie=${movie.movieId}`}>
+            <div key={movie.movieId} className="movie-card">
+              <img src={`data:image/jpeg;base64,${movie.image}`} alt="foto" />
+              <h3>{movie.title}</h3>
+            </div>
+          </Link>
         ))}
       </div>
       <div>

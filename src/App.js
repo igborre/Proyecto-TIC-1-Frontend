@@ -3,7 +3,7 @@ import "./styles/App.css";
 import { Route, Routes } from "react-router-dom";
 import LogIn from "./Pages/LogInPage.js";
 import SignUp from "./Pages/RegisterPage.js";
-import Reserva from "./Pages/ReservationsPage.js";
+import Reserva from "./Components/Reserva.js";
 import ProfileMenu from "./Components/ProfileMenu";
 import LoggedOutHeader from "./Components/LoggedOutHeader.js";
 import MovieList from "./Components/MovieList.js";
