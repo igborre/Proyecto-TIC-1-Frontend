@@ -18,10 +18,6 @@ import Profile from "./Pages/ProfilePage.js";
 // Main App Component
 const App = () => {
   const isLoggedIn = Cookies.get("isLoggedIn");
-  const showCookies = () => {
-    console.log("jwtToken: ", Cookies.get("jwtToken"));
-    console.log("isLoggedIn: ", Cookies.get("isLoggedIn"));
-  };
 
   return (
     <div className="App">
@@ -32,8 +28,6 @@ const App = () => {
         <Link to="/Reserva" className="link-style">
           <Button>Reservas</Button>
         </Link>
-        {/* TODO: Borrar este boton porque es para debug */}
-        <button onClick={showCookies}>Show Cookies</button>
         {isLoggedIn === "true" ? <ProfileMenu /> : <LoggedOutHeader />}
       </header>
 

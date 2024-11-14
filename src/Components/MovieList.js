@@ -13,19 +13,24 @@ const MovieList = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
-    try {
-      const response = await axiosInstance.get("/api/v1/movies");
-      console.log("Fetching movies to backend");
-      setMovies(response.data);
-      setLoading(false);
-    } catch (err) {
-      setError("Failed to load movies.");
-      setLoading(false);
-    }
-  };
+      try {
+        const response = await axiosInstance.get("/api/v1/movies");
+        console.log("Fetching movies to backend");
+        if (response.data.length === 0) {
+          console.log("No data");
+          setError("No movies found.");
+          setLoading(false);
+        } else {
+          setMovies(response.data);
+          setLoading(false);
+        }
+      } catch (err) {
+        setError("Failed to load movies.");
+        setLoading(false);
+      }
+    };
 
     fetchMovies();
-
   }, []);
 
   useEffect(() => {
@@ -50,15 +55,15 @@ const MovieList = () => {
     );
   };
 
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
+
   const currentMovie = movies[currentMovieIndex];
   const prevIndex =
     slideDirection === "next"
       ? (currentMovieIndex - 1 + movies.length) % movies.length
       : (currentMovieIndex + 1) % movies.length;
   const prevMovie = movies[prevIndex];
-
-  if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="movie-container">
