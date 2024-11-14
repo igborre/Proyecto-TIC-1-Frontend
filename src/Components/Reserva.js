@@ -168,7 +168,7 @@ const Reserva = () => {
                     </select>
                 </div>
 
-            {/* Selección de Lugar (cine) */}
+            {/* Selección de Lugar (cine) ajustar a que a travez del lugar se seleccione el objeto, como arriba*/}
             <div className="reserva-field">
                 <label>Selecciona el cine:</label>
                 <select value={selectedLocation} onChange={(e) => setSelectedLocation(e.target.value)}>
@@ -179,19 +179,19 @@ const Reserva = () => {
                 </select>
             </div>
 
-            {/* Selección de Fecha */}
+            {/* Selección de Fecha Solo de las posibles*/}
             <div className="reserva-field">
                 <label>Selecciona la fecha:</label>
                 <input type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
             </div>
 
-            {/* Selección de Hora */}
+            {/* Selección de Hora Solo de las posibles*/}
             <div className="reserva-field">
                 <label>Selecciona la hora:</label>
                 <input type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} />
             </div>
 
-            {/* Selección de Asientos */}
+            {/* Selección de Asientos  Aniadir diferencias seleccionados y no*/}
             <div className="reserva-field">
                 <label>Selecciona tus asientos:</label>
                 <div className="seats-container">
