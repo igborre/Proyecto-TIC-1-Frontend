@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../Utils/AxiosConfig";
+import "../styles/Listings.css";
 
 const Listings = () => {
   const [movies, setMovies] = useState([]);
@@ -37,11 +38,14 @@ const Listings = () => {
   return (
     <div>
       <h1>Películas</h1>
-      <ul>
+      <div className="movies-grid">
         {movies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
+          <div key={movie.id} className="movie-card">
+            <img src={`data:image/jpeg;base64,${movie.image}`} alt="foto" />
+            <h3>{movie.title}</h3>
+          </div>
         ))}
-      </ul>
+      </div>
       <div>
         <button onClick={handlePrevPage} disabled={page === 0}>
           Anterior

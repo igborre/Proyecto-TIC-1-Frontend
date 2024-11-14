@@ -1,132 +1,36 @@
-.Cartelera-Container {
-    float: right;
-    width: 20vmin;
-    height: 20vmin;
-    padding: 20px;
-    background-color: #410b42;
-    border: 3px solid #36083a;
-    border-radius: 16px;
+.movies-grid {
+  display: grid; /* Define que los elementos hijos se alinearán en una cuadrícula */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(400px, 1fr)
+  ); /* Crea columnas flexibles que se adaptan al tamaño de la pantalla */
+  gap: 16px; /* Espaciado entre las tarjetas */
+  padding: 20px;
+  justify-items: center; /* Centra los elementos horizontalmente en cada celda */
+  align-items: center; /* Centra los elementos verticalmente en cada celda */
 }
 
-.Cartelera-Button {
-    background-color: #222222;
-    border-radius: 8px;
-    height: 7vmin;
-    width: 15vmin;
-    text-align: center;
-    justify-content: center;
-    font-size: 12px;
-    border: none;
-    color: #ffffff;
-}
-.Cartelera-Button:hover {
-    color: #7e3c83;
+.movie-card {
+  background-color: #fff; /* Fondo blanco para las tarjetas */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que las imágenes no se desborden */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Alinea la imagen y el texto verticalmente */
+  justify-content: center; /* Centra los elementos verticalmente */
+  align-items: center; /* Centra los elementos horizontalmente */
 }
 
-.scrollable-list {
-    float: none;
-    width: 15vmin;
-    max-height: 300px;
-    overflow-y: auto;
-    background-color: #222222;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+.movie-card img {
+  width: 100%; /* La imagen ocupará todo el ancho de la tarjeta */
+  height: auto; /* Mantiene las proporciones de la imagen */
+  object-fit: contain;
 }
 
-.list-item {
-    padding: 10px;
-    font-size: 12px;
-    border-bottom: 1px solid #ddd;
-    color: #ffffff;
-}
-
-.reserva-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 2px solid #7c4dff;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    text-align: center;
-    color: #7c4dff;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.reserva-field {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-select, input[type="date"], input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-
-.seats-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.seat {
-    padding: 15px;
-    background-color: #7c4dff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.seat.selected {
-    background-color: #b56cc4;
-}
-
-.seat:hover {
-    background-color: #6a3ae5;
-}
-.button-All  {
-    width: 40%;
-    margin: 10px;
-    padding: 12px;
-    background-color: #7c4dff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-
-.Select-Theater {
-    width: 40%;
-    margin: 10px;
-    padding: 12px;
-    background-color: #7c4dff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.reserva-button:hover {
-    background-color: #6a3ae5;
+.movie-card h3 {
+  margin: 12px 0;
+  font-size: 1.2rem;
+  color: #333; /* Make sure the text color is visible */
+  font-weight: bold;
 }
