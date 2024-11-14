@@ -20,8 +20,11 @@ const Reserva = () => {
   const [movies, setMovies] = useState([]);
   const [locations, setLocations] = useState([]);
   const [dates, setDates] = useState([]);
+  const [times, setTimes] = useState([]);
+  const [dateTimes, setDateTimes] = useState([]);
   const [availableSeats, setAvailableSeats] = useState([]);
 
+  // The movie has been clicked on
   const selectedMovie = searchParams.get("movie");
   //   console.log("selected movie:" + selectedMovie);
 
@@ -44,93 +47,87 @@ const Reserva = () => {
 
   // }, []);
 
-  // Una vez se selecciona la pelicula, se elige el cine, cuando pasa se reinician los valores de horas y dias
-  // Siempre hay una pelicula seleccionada una vez se elige una
+  // Given that Movie, get the locations
   useEffect(() => {
-    // Se reinicia lo que viene despues
+    // When changing the Movie, all else is needed to be selected again
     setSelectedSeats([]);
     setSelectedTime("");
     setSelectedDate("");
     setSelectedLocation("");
-    const fetchScreenings = async () => {
+
+    const getTheaters = async () => {
       try {
+        // Get the screening for the movie
         const response = await axiosInstance.get(
           `/api/v1/movies/theaters?movieId=${selectedMovie}`
         );
         setLoading(false);
-        console.log(response);
-        // Ver localidades de las peliculas
-        const uniqueLocations = response.data
-          .map((ele) => ele.location) // Se mapean los lugares en cada screening
-          .filter((value, index, self) => self.indexOf(value) === index); // Se filtrar para que sean unicos
-        setLocations(uniqueLocations);
+        console.log(response); // Log the response
+        // TODO: check if this is right
+        setLocations(response); // It should have the Theatre Id and Theatre Zone
       } catch (err) {
         setError("Failed to load screenings");
       }
     };
-    fetchScreenings();
+    // Call the funcion once a movie is selected or the selected movie changes
+    getTheaters();
   }, [selectedMovie]);
 
-  // Conseguir las fechas una vez se tiene el lugar y pelicula
+
+  // Having chosen the location, see that dates
   useEffect(() => {
+    // If is not reseting (That happens when you change a value that has been selected above)
     if (selectedLocation !== "") {
-      // Se resetean los valores
+      // Reset values dependent on the screening location if it changes or a new movie is being sle
       setSelectedSeats([]);
       setSelectedTime("");
       setSelectedDate("");
       const fetchDates = async () => {
         try {
           const response = await axiosInstance.get(
-            `/api/v1/screenings/${selectedMovie}/${selectedLocation}`
+            `/api/v1/movies/theaters/time?movieId=${selectedMovie}&theaterId=${selectedLocation}`
           );
-          // Ver dias de las peliculas
+          setDateTimes(response.data);
           const uniqueDates = response.data
-            .map((ele) => ele.date) // Se mapean los las fechas de los screening
-            .filter((value, index, self) => self.indexOf(value) === index); // Se filtrar para que sean unicos
+            .map((DateTimes) => DateTimes.toLocaleDateString())
+            .filter((value, index, self) => self.indexOf(value) === index);
           setDates(uniqueDates);
         } catch (err) {
           setError("Failed to load screenings");
         }
       };
+      // Call the function each time the selected location changes
       fetchDates();
     }
   }, [selectedLocation]);
 
-  // Conseguir las horas una vez se tiene lo de arriba
+  // No not need to request new data, since date and time are stored
   useEffect(() => {
     if (selectedDate !== "") {
-      // Se resetean los valores
+      // Values that may not be equal for all dates
       setSelectedSeats([]);
       setSelectedTime("");
-      const fetchTimes = async () => {
-        try {
-          const response = await axiosInstance.get(
-            `/api/v1/screenings/${selectedMovie}/${selectedLocation}/${selectedDate}`
-          );
-          // Ver dias de las peliculas
-          const uniqueDates = response.data
-            .map((ele) => ele.times) // Se mapean los las fechas de los screening
-            .filter((value, index, self) => self.indexOf(value) === index); // Se filtrar para que sean unicos
-          setDates(uniqueDates);
-        } catch (err) {
-          setError("Failed to load screenings");
+      const Times = []
+      for (let dateAndTimes of dateTimes){
+        if (dateAndTimes.toLocaleDateString() === selectedDate) {
+          Times.append(dateAndTimes.toLocaleTimeString())
         }
-      };
-      fetchTimes();
+        setTimes(Times)
+      }
     }
   }, [selectedDate]);
 
-  // Conseguir las horas una vez se tiene lo de arriba
+  // Given all above, get possible times
   useEffect(() => {
     if (selectedTime !== "") {
-      // Se resetean los valores
+      // Reset seats
       setSelectedSeats([]);
       const fetchSeats = async () => {
         try {
           const response = await axiosInstance.get(
             `/api/v1/screenings/${selectedMovie}/${selectedLocation}/${selectedDate}/${selectedTime}`
           );
-          // Ver dias de las peliculas
+          // Get the seats for that screening
           setAvailableSeats(response.data.seats);
         } catch (err) {
           setError("Failed to load screenings");
@@ -204,9 +201,9 @@ const Reserva = () => {
           onChange={(e) => setSelectedLocation(e.target.value)}
         >
           <option value="">--Selecciona un cine--</option>
-          {locations.map((location, index) => (
-            <option key={index} value={location}>
-              {location}
+          {locations.map((location) => (
+              <option key={location.theaterId} value={location.theaterId}>
+                {location.theaterZone}
             </option>
           ))}
         </select>
@@ -215,21 +212,33 @@ const Reserva = () => {
       {/* Selección de Fecha Solo de las posibles*/}
       <div className="reserva-field">
         <label>Selecciona la fecha:</label>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
+        <select
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+        >
+          <option value="">--Selecciona una fecha--</option>
+          {dates.map((date, index) => (
+              <option key={index} value={date}>
+                {date}
+              </option>
+          ))}
+        </select>
       </div>
 
       {/* Selección de Hora Solo de las posibles*/}
       <div className="reserva-field">
         <label>Selecciona la hora:</label>
-        <input
-          type="time"
-          value={selectedTime}
-          onChange={(e) => setSelectedTime(e.target.value)}
-        />
+        <select
+            value={selectedTime}
+            onChange={(e) => setSelectedTime(e.target.value)}
+        >
+          <option value="">--Selecciona la hora--</option>
+          {dates.map((date, index) => (
+              <option key={index} value={date}>
+                {date}
+              </option>
+          ))}
+        </select>
       </div>
 
       {/* Selección de Asientos  Aniadir diferencias seleccionados y no*/}
@@ -237,10 +246,10 @@ const Reserva = () => {
         <label>Selecciona tus asientos:</label>
         <div className="seats-container">
           {availableSeats.map((seat, index) => (
-            <button
-              key={index}
-              className={`seat ${
-                selectedSeats.includes(seat) ? "selected" : ""
+              <button
+                  key={index}
+                  className={`seat ${
+                      selectedSeats.includes(seat) ? "selected" : ""
               }`}
               onClick={() => handleSeatSelection(seat)}
             >
