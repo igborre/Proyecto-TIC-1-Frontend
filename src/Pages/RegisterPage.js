@@ -4,8 +4,9 @@ import Auth from "../Utils/Auth";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
 import axiosInstance from "../Utils/AxiosConfig";
 
-const SignUp = ({ onLogIn }) => {
-  const { setData } = Auth();
+const SignUp = () => {
+  const { handleLogin } = Auth();
+
   const navigate = useNavigate(); // Inicializar useNavigate para la redirección
 
   const [formData, setFormData] = useState({
@@ -63,10 +64,9 @@ const SignUp = ({ onLogIn }) => {
 
         if (response.status === 200 || response.status === 201) {
           // Assuming 200 or 201 for success
-          const data = response.data;
-          console.log("Sign up successful:", data);
-          setData(data);
-          onLogIn();
+          const jwtToken = response.data["jwt"];
+          console.log("Sign up successful:", jwtToken);
+          handleLogin(jwtToken);
           navigate("/");
         } else {
           console.error(

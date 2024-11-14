@@ -12,6 +12,7 @@ const Auth = () => {
     }
   };
 
+  // No se usa esto de abajo
   const handleLogout = () => {};
 
   return { handleLogin, handleLogout };

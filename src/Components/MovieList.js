@@ -19,7 +19,7 @@ const MovieList = () => {
           "/api/v1/movies?page=0&size=5"
         );
         console.log(response.data.content);
-        if (response.data.length === 0) {
+        if (response.data.content.length === 0) {
           setError("No movies found.");
           setLoading(false);
         } else {
